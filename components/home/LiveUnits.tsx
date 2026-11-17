@@ -60,8 +60,22 @@ const GAP = 20;
 const CAPTION = 26;
 /** Gap between the row and the leaderboard below it. */
 const ROW_GAP = 16;
-/** Share of the viewport height the whole set is allowed to occupy. */
-const VIEWPORT_SHARE = 0.62;
+/** The site header is sticky, so it covers this much of the viewport. */
+const HEADER = 72;
+/**
+ * Share of the remaining viewport the set may occupy.
+ *
+ * This was 0.62, chosen so the heading, the lede and the units were on
+ * screen together. That is a stricter requirement than the one that
+ * matters, and it cost a third of the available size: on a 789px
+ * window it resolved to 61%, which made the units too small to read
+ * while leaving a quarter of the column empty beside them.
+ *
+ * What has to be true is that the four units are visible at once. The
+ * heading above them is allowed to scroll away, so the budget is now
+ * nearly the whole viewport and the set lands around 90%.
+ */
+const VIEWPORT_SHARE = 0.95;
 
 /**
  * Three shapes a buyer recognises on sight, no two the same
@@ -171,7 +185,8 @@ export function LiveUnits({
 
     const byRowWidth = (availW - gaps) / sumW;
     const byLeaderWidth = availW / leaderboard.width;
-    const budgetH = window.innerHeight * VIEWPORT_SHARE - CAPTION * 2 - ROW_GAP;
+    const budgetH =
+      (window.innerHeight - HEADER) * VIEWPORT_SHARE - CAPTION * 2 - ROW_GAP;
     const byHeight = budgetH / (rowH + leaderboard.height);
 
     const next = Math.min(byRowWidth, byLeaderWidth, byHeight, 1);
@@ -228,9 +243,14 @@ export function LiveUnits({
         <Unit unit={leaderboard} baseUrl={baseUrl} live={live} scale={scale} />
       </div>
 
-      <p className="terminal mt-4 text-label uppercase tracking-label text-fg-subtle">
-        Shown at {Math.round(scale * 100)}% to fit. Real sizes labelled.
-      </p>
+      {/* Only a disclosure when there is something to disclose. At a
+          full 1 the units are at their real size and saying "shown at
+          100%" invites the reader to wonder what the catch is. */}
+      {scale < 1 && (
+        <p className="terminal mt-4 text-label uppercase tracking-label text-fg-subtle">
+          Shown at {Math.round(scale * 100)}% to fit. Real sizes labelled.
+        </p>
+      )}
     </div>
   );
 }
