@@ -100,7 +100,7 @@ export default function AdSystemOffering() {
         <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-16 sm:px-8">
           <Link
             href="/"
-            className="terminal mb-8 inline-flex items-center gap-2 text-label uppercase tracking-label text-fg-subtle hover:text-neon"
+            className="terminal mb-8 -my-3.5 inline-flex items-center gap-2 py-3.5 text-label uppercase tracking-label text-fg-subtle hover:text-neon"
           >
             <ArrowLeft size={12} aria-hidden="true" />
             offering / ad system
@@ -289,7 +289,7 @@ export default function AdSystemOffering() {
         {SEF_CASE_PUBLISHED && (
           <Link
             href="/cases/sef"
-            className="inline-flex items-center gap-2 text-small font-bold text-neon hover:underline"
+            className="-my-3 inline-flex items-center gap-2 py-3 text-small font-bold text-neon hover:underline"
           >
             Read the case
             <ArrowRight size={14} aria-hidden="true" />

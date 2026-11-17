@@ -76,7 +76,7 @@ export default function ToolingOffering() {
         <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pb-16 sm:px-8">
           <Link
             href="/"
-            className="terminal mb-8 inline-flex items-center gap-2 text-label uppercase tracking-label text-fg-subtle hover:text-neon"
+            className="terminal mb-8 -my-3.5 inline-flex items-center gap-2 py-3.5 text-label uppercase tracking-label text-fg-subtle hover:text-neon"
           >
             <ArrowLeft size={12} aria-hidden="true" />
             offering / pipeline tooling
@@ -217,7 +217,7 @@ export default function ToolingOffering() {
         {SEF_CASE_PUBLISHED && (
           <Link
             href="/cases/sef"
-            className="mt-10 inline-flex items-center gap-2 text-small text-fg-subtle hover:text-neon"
+            className="mt-10 -mb-3 inline-flex items-center gap-2 py-3 text-small text-fg-subtle hover:text-neon"
           >
             See a system built this way
             <ArrowRight size={14} aria-hidden="true" />
