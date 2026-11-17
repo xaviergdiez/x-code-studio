@@ -81,7 +81,7 @@ export const PRICING = {
 
 /** Rush and out-of-hours uplifts, kept proportional to the base. */
 export const UPLIFTS = {
-  /** Audit delivered in 3 days rather than the standard 5. */
+  /** Audit delivered in 3 working days rather than the standard 5. */
   auditExpress: price(875, 0),
   /** Audit delivered in 2 days, starting Monday, delivered Wednesday. */
   auditRush: price(1750, 0),
@@ -110,4 +110,69 @@ export function priceLabel(p: Price): string {
 /** Implied hourly rate at 8h days, for internal sanity checks. */
 export function impliedHourly(p: Price): number | null {
   return p.days > 0 ? Math.round(p.amount / (p.days * 8)) : null;
+}
+
+/**
+ * ── What the buyer can hold me to ────────────────────────────────
+ *
+ * Every engagement on this site was fixed-price with no stated
+ * turnaround and no revision policy anywhere. In a fixed-price model
+ * an unstated revision policy is an open risk on both sides, and the
+ * buyer carries it first: they cannot tell whether "fixed" means two
+ * rounds or twenty, so they assume the worst and ask for a call.
+ *
+ * Competitors state this plainly. BannerBazen publishes a standard
+ * set of up to ten formats in three working days after master
+ * approval, two revisions on the master and one on the set. That is
+ * the single most confidence-building thing on their site and it
+ * costs them nothing.
+ *
+ * `Price.days` above is BILLABLE days, used to derive the implied
+ * rate. `Delivery.days` below is ELAPSED working days from kickoff
+ * to delivery, which is the number a buyer actually plans around.
+ * They are not the same and were quietly contradicting each other:
+ * the audit carried `days: 4`, the homepage tier said "one week",
+ * and the express uplift described "the standard 5". Elapsed is five.
+ *
+ * NOTE: these are commitments, not marketing. Confirm each one is
+ * keepable before this ships, and change it here rather than in a
+ * page if it is not.
+ */
+export type Delivery = {
+  /** Elapsed working days from kickoff to first delivery. */
+  days: number;
+  /** What starts the clock. Vague starts make the window meaningless. */
+  startsWhen: string;
+  /** Included revision rounds, in the buyer's terms. */
+  revisions: string;
+};
+
+export const DELIVERY = {
+  audit: {
+    days: 5,
+    startsWhen: 'the kickoff call',
+    revisions: 'One round of corrections on the written report.',
+  },
+  sprint: {
+    days: 5,
+    startsWhen: 'the agreed start date',
+    revisions: 'Two rounds on the deliverable inside the sprint week.',
+  },
+  tooling: {
+    days: 6,
+    startsWhen: 'the spec is signed off',
+    revisions:
+      'Two rounds on the build, plus 30 days of fixes after handover at no charge.',
+  },
+  designSystem: {
+    days: 18,
+    startsWhen: 'the audit is delivered',
+    revisions:
+      'Two rounds on the core library, one on each template family.',
+  },
+} as const satisfies Record<string, Delivery>;
+
+/** "5 working days from the kickoff call". */
+export function deliveryLabel(d: Delivery): string {
+  return `${d.days} working days from ${d.startsWhen}`;
 }

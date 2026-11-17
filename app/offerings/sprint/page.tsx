@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { PRICING, UPLIFTS } from '@/lib/pricing';
+import { PRICING, UPLIFTS, DELIVERY } from '@/lib/pricing';
 import { ArrowLeft, CheckCircle, Calendar } from 'lucide-react';
+import { Commitments } from '@/components/ui/Commitments';
 
 export default function SprintPage() {
   return (
@@ -39,6 +40,15 @@ export default function SprintPage() {
               <div className="text-gray-400">/week</div>
             </div>
           </div>
+        </section>
+
+        {/* Delivery and revisions, stated rather than implied. The
+            surrounding page is pre-rewrite and still uses raw hex and
+            the terminal chassis; this block uses the real tokens, so
+            it will look newer than its neighbours until that rewrite
+            happens. */}
+        <section className="max-w-5xl mx-auto px-4 mb-24">
+          <Commitments delivery={DELIVERY.sprint} />
         </section>
 
         {/* Best For */}

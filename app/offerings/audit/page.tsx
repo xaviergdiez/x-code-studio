@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { PRICING, UPLIFTS, AUDIT_CREDIT_DAYS, priceLabel } from '@/lib/pricing';
+import { PRICING, UPLIFTS, AUDIT_CREDIT_DAYS, priceLabel, DELIVERY } from '@/lib/pricing';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
+import { Commitments } from '@/components/ui/Commitments';
 
 export default function AuditPage() {
   const [isExpanded, setIsExpanded] = useState<{ [key: string]: boolean }>({});
@@ -46,6 +47,15 @@ export default function AuditPage() {
               <div className="text-gray-400">one-time investment</div>
             </div>
           </div>
+        </section>
+
+        {/* Delivery and revisions, stated rather than implied. The
+            surrounding page is pre-rewrite and still uses raw hex and
+            the terminal chassis; this block uses the real tokens, so
+            it will look newer than its neighbours until that rewrite
+            happens. */}
+        <section className="max-w-5xl mx-auto px-4 mb-24">
+          <Commitments delivery={DELIVERY.audit} />
         </section>
 
         {/* What You Get */}

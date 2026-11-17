@@ -4,8 +4,9 @@ import Link from 'next/link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Section, SectionHeading, Card } from '@/components/ui/Section';
-import { PRICING, priceLabel, AUDIT_CREDIT_DAYS } from '@/lib/pricing';
+import { PRICING, priceLabel, AUDIT_CREDIT_DAYS, DELIVERY } from '@/lib/pricing';
 import { SEF_CASE_PUBLISHED } from '@/lib/flags';
+import { Commitments } from '@/components/ui/Commitments';
 
 /**
  * Pipeline tooling.
@@ -96,6 +97,11 @@ export default function ToolingOffering() {
           </p>
         </div>
       </section>
+
+      {/* ─── WHAT YOU CAN HOLD ME TO ─── */}
+      <Section tone="raised" width="prose">
+        <Commitments delivery={DELIVERY.tooling} />
+      </Section>
 
       {/* ─── WHY NOT A DOWNLOAD ─── */}
       <Section tone="raised" width="prose">

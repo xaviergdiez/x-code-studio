@@ -13,6 +13,8 @@ import { SEF_CASE_PUBLISHED } from '@/lib/flags';
 import { AdaptiveStage } from '@/components/home/AdaptiveStage';
 import { HeroFeed } from '@/components/home/HeroFeed';
 import { scrollToId, useScrollReveal } from '@/lib/motion';
+import { LiveUnits } from '@/components/home/LiveUnits';
+import { BANNER_ORIGIN } from '@/lib/bmw-banners';
 
 /**
  * x-code.studio — homepage
@@ -223,6 +225,49 @@ function CostEstimator() {
 // ═════════════════════════════════════════════════════════════════
 // DATA
 // ═════════════════════════════════════════════════════════════════
+/**
+ * Entry points by situation, shown above the priced tiers.
+ *
+ * Three, mapped onto real offerings, and none of them invented to
+ * fill a grid: the versioning problem goes to the system build, the
+ * deadline problem to the sprint, the "we cannot name it" problem to
+ * the audit. The audit fee credits against a build, so route three
+ * feeds the other two rather than competing with them.
+ *
+ * No "something else" route. A route nobody fits in is worse than
+ * three that some people do, and the contact form is two sections
+ * further down for everyone else.
+ */
+const ROUTES = [
+  {
+    id: 'system',
+    who: 'Agency or in-house team',
+    situation: 'The same campaign, rebuilt every month',
+    body: 'Products times languages times formats times partners. Add a market and the work multiplies, add a channel and it multiplies again. The design is not the bottleneck, the versioning is.',
+    answer: 'Build the campaign once as a system, then let the data vary instead of the files.',
+    cta: 'See the ad system build',
+    href: '/offerings/design-system',
+  },
+  {
+    id: 'sprint',
+    who: 'Production lead with a date',
+    situation: 'One thing is broken and it ships this week',
+    body: 'A pipeline that fell over, a handover that never happened, or a format nobody on the team can build without waiting for a specialist.',
+    answer: 'One week, one deliverable, fixed price. Something working at the end of it, documented, yours to run.',
+    cta: 'See what a sprint covers',
+    href: '/offerings/sprint',
+  },
+  {
+    id: 'audit',
+    who: 'Head of production',
+    situation: 'It is slow and nobody can say where',
+    body: 'The team is busy, the work is late, and every estimate is a guess, because nobody has measured which steps actually cost the days.',
+    answer: 'A week inside the process, a written report naming where the time goes, and a roadmap ordered by payback.',
+    cta: 'See what the audit covers',
+    href: '/offerings/audit',
+  },
+] as const;
+
 const TIERS = [
   {
     id: 'audit',
@@ -619,6 +664,41 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ─── LIVE UNITS ─── */}
+        {/*
+            Proof before argument.
+
+            Everything below this is a claim: the calculator, the
+            testimonials, the tiers. This is the one thing on the
+            page that is not. The units are the actual builds from
+            the BMW and MINI campaign, served from where they live
+            and running at the size they shipped.
+
+            It sits directly under the hero because it is the fastest
+            way to establish that the person writing the rest of the
+            page has done the work. Three units, not the full wall:
+            see the note in LiveUnits. */}
+        <Section id="live">
+          <div className="contents">
+            <SectionHeading
+              eyebrow="Running right now"
+              lede="Three of the BMW and MINI units from that campaign, at the sizes they shipped, served from where they live. Not screenshots."
+            >
+              This is the actual work
+            </SectionHeading>
+
+            <LiveUnits baseUrl={BANNER_ORIGIN} />
+
+            <p className="mt-2 text-small text-fg-subtle">
+              Nineteen of them are on the{' '}
+              <Link href="/cases/bmw-mini" className="text-neon hover:underline">
+                BMW and MINI case
+              </Link>
+              . Delivered as part of the team at Monks.
+            </p>
+          </div>
+        </Section>
+
         {/* ─── COST ─── */}
         <Section id="cost" tone="raised">
           <div className="contents">
@@ -663,6 +743,51 @@ export default function Home() {
                 </li>
               ))}
             </ul>
+          </div>
+        </Section>
+
+        {/* ─── ROUTES ─── */}
+        {/*
+            Situation before price.
+
+            The tiers below are ordered by what they cost, which is
+            the studio's view of the ladder and not the reader's. A
+            head of production does not arrive knowing whether they
+            are an audit or a sprint; they arrive knowing their team
+            rebuilt the same campaign four times last month. These
+            three routes let them recognise themselves first and meet
+            the price second.
+
+            Deliberately three, and deliberately not a fourth for
+            "something else": a route nobody fits is worse than none,
+            and the contact form is two sections down. */}
+        <Section id="routes">
+          <div className="contents">
+            <SectionHeading lede="Most people arrive in one of three situations. Start from the one that sounds like yours.">
+              Where are you right now?
+            </SectionHeading>
+
+            <ol className="grid gap-6 md:grid-cols-3">
+              {ROUTES.map((r, i) => (
+                <li key={r.id} data-reveal-item="scale">
+                  <Card interactive>
+                    <p className="terminal text-label uppercase tracking-label text-signal">
+                      {String(i + 1).padStart(2, '0')} / {r.who}
+                    </p>
+                    <h3 className="mt-3 text-h3 font-bold text-fg">{r.situation}</h3>
+                    <p className="mt-4 flex-grow text-small text-fg-muted">{r.body}</p>
+                    <p className="mb-5 mt-5 border-t border-line pt-5 text-small text-fg-subtle">
+                      {r.answer}
+                    </p>
+                    {/* md, not sm: sm renders 37px tall and the
+                        accessibility floor here is a 44px target. */}
+                    <Button href={r.href} variant="secondary" size="md" className="w-full">
+                      {r.cta}
+                    </Button>
+                  </Card>
+                </li>
+              ))}
+            </ol>
           </div>
         </Section>
 

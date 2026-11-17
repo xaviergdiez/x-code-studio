@@ -4,8 +4,9 @@ import Link from 'next/link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Section, SectionHeading, Card } from '@/components/ui/Section';
-import { PRICING, UPLIFTS, priceLabel, AUDIT_CREDIT_DAYS } from '@/lib/pricing';
+import { PRICING, UPLIFTS, priceLabel, AUDIT_CREDIT_DAYS, DELIVERY } from '@/lib/pricing';
 import { SEF_CASE_PUBLISHED, FASTENING_CLIENT } from '@/lib/flags';
+import { Commitments } from '@/components/ui/Commitments';
 
 /**
  * Ad system build.
@@ -122,6 +123,11 @@ export default function AdSystemOffering() {
           </p>
         </div>
       </section>
+
+      {/* ─── WHAT YOU CAN HOLD ME TO ─── */}
+      <Section tone="raised" width="prose">
+        <Commitments delivery={DELIVERY.designSystem} />
+      </Section>
 
       {/* ─── WHO IT IS FOR ─── */}
       <Section tone="raised" width="prose">
