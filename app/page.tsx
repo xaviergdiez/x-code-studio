@@ -689,12 +689,20 @@ export default function Home() {
 
             <LiveUnits baseUrl={BANNER_ORIGIN} />
 
+            {/* Agency credit deliberately does not live here. It used
+                to read "Delivered as part of the team at Monks", which
+                was true while every unit was BMW or MINI and stops
+                being true the moment older clients join the set. A
+                single line cannot attribute a mixed set correctly, and
+                a wrong credit is the kind of gap a buyer notices and
+                then stops trusting the rest of the page. Each case page
+                carries its own attribution, which is where it belongs. */}
             <p className="mt-2 text-small text-fg-subtle">
-              Nineteen of them are on the{' '}
+              Nineteen more BMW and MINI units are on the{' '}
               <Link href="/cases/bmw-mini" className="text-neon hover:underline">
                 BMW and MINI case
               </Link>
-              . Delivered as part of the team at Monks.
+              .
             </p>
           </div>
         </Section>
