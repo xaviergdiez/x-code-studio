@@ -134,9 +134,11 @@ export function impliedHourly(p: Price): number | null {
  * the audit carried `days: 4`, the homepage tier said "one week",
  * and the express uplift described "the standard 5". Elapsed is five.
  *
- * NOTE: these are commitments, not marketing. Confirm each one is
- * keepable before this ships, and change it here rather than in a
- * page if it is not.
+ * These are commitments, not marketing. Xavi confirmed all four
+ * windows and revision counts below as keepable, as written, on 17
+ * November 2026. They become contractual the moment they are on a
+ * page, so change them here rather than in a page, and re-confirm
+ * before shortening a window or cutting a revision round.
  */
 export type Delivery = {
   /** Elapsed working days from kickoff to first delivery. */
