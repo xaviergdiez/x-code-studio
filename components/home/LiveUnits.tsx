@@ -229,19 +229,15 @@ export function LiveUnits({ baseUrl }: { baseUrl: string }) {
         <Unit unit={wide} baseUrl={baseUrl} live={live} scale={scale} />
       </div>
 
-      <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
+      {/* The scale percentage used to be stated here. It was removed:
+          every unit already carries its real dimensions underneath it,
+          so the disclosure was answering a question the captions had
+          already answered, in the most prominent spot in the section. */}
+      <div className="mt-5">
         <Button variant="secondary" size="md" onClick={reshuffle}>
           <RefreshCw size={14} aria-hidden="true" />
           Deal another four
         </Button>
-        {/* Only a disclosure when there is something to disclose. At a
-            full 1 the units are at their real size, and saying "shown
-            at 100%" invites the reader to look for a catch. */}
-        {scale < 1 && (
-          <p className="terminal text-label uppercase tracking-label text-fg-subtle">
-            Shown at {Math.round(scale * 100)}% to fit. Real sizes labelled.
-          </p>
-        )}
       </div>
 
       {/* The set changes without a page load, so a screen reader is

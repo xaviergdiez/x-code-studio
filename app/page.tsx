@@ -689,21 +689,19 @@ export default function Home() {
 
             <LiveUnits baseUrl={BANNER_ORIGIN} />
 
-            {/* Agency credit deliberately does not live here. It used
-                to read "Delivered as part of the team at Monks", which
-                was true while every unit was BMW or MINI and stops
-                being true the moment older clients join the set. A
-                single line cannot attribute a mixed set correctly, and
-                a wrong credit is the kind of gap a buyer notices and
-                then stops trusting the rest of the page. Each case page
-                carries its own attribution, which is where it belongs. */}
-            <p className="mt-2 text-small text-fg-subtle">
-              Nineteen more BMW and MINI units are on the{' '}
-              <Link href="/cases/bmw-mini" className="text-neon hover:underline">
-                BMW and MINI case
-              </Link>
-              .
-            </p>
+            {/* Nothing follows the units on purpose.
+
+                This held two things that are now gone. An agency credit
+                reading "Delivered as part of the team at Monks", which
+                was true while every unit was BMW or MINI and stopped
+                being true once older clients joined the set: one line
+                cannot attribute a mixed set correctly, and each case
+                page carries its own credit anyway. Then a pointer to
+                the BMW and MINI case, which competed with the section's
+                own call to action and sent people sideways out of the
+                page at the exact moment the work had just proved
+                itself. The case is still reachable from the work
+                section, where going deeper is the point. */}
           </div>
         </Section>
 
