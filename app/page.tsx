@@ -682,7 +682,7 @@ export default function Home() {
           <div className="contents">
             <SectionHeading
               eyebrow="Running right now"
-              lede="Four of the BMW and MINI units from that campaign, at the sizes they shipped, served from where they live. Not screenshots."
+              lede="Four real units, dealt from the archive, at the sizes they shipped. Running here, not screenshots of them."
             >
               This is the actual work
             </SectionHeading>
